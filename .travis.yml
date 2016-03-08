@@ -1,0 +1,23 @@
+language: c
+
+os:
+  - osx
+  - linux
+
+sudo: true
+
+compiler:
+  - gcc
+  - clang
+
+before install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install php70 autoconf mapnik; fi
+
+script:
+  - phpize
+  - ./configure --with-mapnik
+  - make test
+
+#notifications:
+#  webhooks: https://coveralls.io/webhook?repo_token=$COVERALLS_TOKEN
